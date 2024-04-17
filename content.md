@@ -105,8 +105,8 @@ Implement the `to_meta_tags` method in your model. This way you'll have access t
 class MyModel < ApplicationRecord
   def to_meta_tags
     DEFAULT_META_TAGS.deep_merge({
-      title: 'Specific Title',
-      description: 'Specific Description',
+      title: title,
+      description: description,
       # other specific tags
     })
   end
