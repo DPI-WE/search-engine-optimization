@@ -56,21 +56,26 @@ gem "meta-tags"
 Run `bundle install` to install the gem.
 
 ### Step 2: Set Up Default Meta Tags
-Create a new initializer file where you can define the default meta tags.
+Create a new service where you can define the default meta tags.
 
 ```ruby
-# config/initializers/meta_tags.rb
-DEFAULT_META_TAGS = {
-  site: "My Awesome App",
-  image: -> { ActionController::Base.helpers.asset_url('your_image_name.jpg') },
-  description: "This is the best app ever",
-  og: {
-    title: "My Awesome App",
-    image: -> { ActionController::Base.helpers.asset_url('your_image_name.jpg') },
-    description: "This is the best app ever",
-    site_name: "My Awesome App"
-  }
-}
+# app/services/meta_tag_service.rb
+class MetaTagService
+  def self.defaults
+    {
+      site: "My Awesome App",
+      image: ActionController::Base.helpers.asset_url('my-image.jpeg'),
+      description: "The best app for posting about stuff",
+      og: {
+        title: "My Awesome App",
+        image: ActionController::Base.helpers.asset_url('my-image.jpeg'),
+        description: "The best app for posting about stuff",
+        site_name: "My Awesome App"
+      }
+    }
+  end
+end
+
 ```
 
 Incorporate these default meta tags in your layout by updating `app/views/layouts/application.html.erb`:
@@ -80,7 +85,7 @@ Incorporate these default meta tags in your layout by updating `app/views/layout
 <html>
   <head>
     ...
-    <%= display_meta_tags(DEFAULT_META_TAGS) %>
+    <%= display_meta_tags(MetaTagService.defaults) %>
     ...
   </head>
   <body>
