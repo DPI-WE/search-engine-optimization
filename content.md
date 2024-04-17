@@ -35,13 +35,13 @@ The backbone of SEO is effective keyword use. You want to identify less competit
 ### Content Creation
 Once you have your keywords:
 
-- Create Quality Content: Write useful, comprehensive content that incorporates your keywords naturally.
-- Update Regularly: Keep your site fresh with regular updates and new information.
+- **Create Quality Content**: Write useful, comprehensive content that incorporates your keywords naturally.
+- **Update Regularly**: Keep your site fresh with regular updates and new information.
 
 ## SEO Best Practices
-- Responsive Design: Ensure your website is mobile-friendly.
-- Internal Linking: Use internal links wisely to allow search engines to crawl more deeply into your site.
-- Alt Text for Images: Describe your images using alt text to improve visibility in search engine image results.
+- **Responsive Design**: Ensure your website is mobile-friendly.
+- **Internal Linking**: Use internal links wisely to allow search engines to crawl more deeply into your site.
+- **Alt Text for Images**: Describe your images using alt text to improve visibility in search engine image results.
 
 ## Coding Exercise: Add Meta Tags to Your Application
 Meta tags are crucial for SEO as they provide search engines with metadata about the content of your pages. This section will guide you through adding and customizing meta tags in your application.
@@ -75,7 +75,7 @@ DEFAULT_META_TAGS = {
 
 Incorporate these default meta tags in your layout by updating `app/views/layouts/application.html.erb`:
 
-```html
+```erb
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +104,7 @@ Implement the `to_meta_tags` method in your model. This way you'll have access t
 ```ruby
 class MyModel < ApplicationRecord
   def to_meta_tags
-    META_TAGS_DEFAULTS.deep_merge({
+    DEFAULT_META_TAGS.deep_merge({
       title: 'Specific Title',
       description: 'Specific Description',
       # other specific tags
