@@ -78,14 +78,14 @@ Incorporate these default meta tags in your layout by updating `app/views/layout
 ```erb
 <!DOCTYPE html>
 <html>
-<head>
-  ...
-  <%= display_meta_tags(DEFAULT_META_TAGS) %>
-  ...
-</head>
-<body>
-  <%= yield %>
-</body>
+  <head>
+    ...
+    <%= display_meta_tags(DEFAULT_META_TAGS) %>
+    ...
+  </head>
+  <body>
+    <%= yield %>
+  </body>
 </html>
 ```
 
