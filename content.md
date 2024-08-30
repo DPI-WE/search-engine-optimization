@@ -96,9 +96,7 @@ Incorporate these default meta tags in your layout by updating `app/views/layout
 ```
 
 ### Step 3: Customize Meta Tags for Specific Pages
-
-For pages needing custom meta tags, set them in the corresponding controller
-action:
+For pages needing custom meta tags, set them in the corresponding controller action:
 
 ```ruby
 class MyController < ApplicationController
