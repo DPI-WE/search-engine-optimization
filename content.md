@@ -56,36 +56,37 @@ gem "meta-tags"
 Run `bundle install` to install the gem.
 
 ### Step 2: Set Up Default Meta Tags
-Create a new service where you can define the default meta tags.
+Create a partial at `app/views/shared/_meta_tags.html.erb`:
 
-```ruby
-# app/services/meta_tag_service.rb
-class MetaTagService
-  def self.defaults
-    {
-      site: "My Awesome App",
-      image: ActionController::Base.helpers.asset_url('my-image.jpeg'),
+```erb
+<!--app/views/shared/_meta_tags.html.erb-->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+<%=
+  display_meta_tags({
+    site: "My Awesome App",
+    image: asset_url('my-image.jpeg'),
+    description: "The best app for posting about stuff",
+    og: {
+      title: "My Awesome App",
+      image: asset_url('my-image.jpeg'),
       description: "The best app for posting about stuff",
-      og: {
-        title: "My Awesome App",
-        image: ActionController::Base.helpers.asset_url('my-image.jpeg'),
-        description: "The best app for posting about stuff",
-        site_name: "My Awesome App"
-      }
-    }
-  end
-end
-
+      site_name: "My Awesome App"
+    },
+  })
+%>
 ```
 
 Incorporate these default meta tags in your layout by updating `app/views/layouts/application.html.erb`:
 
 ```erb
+<!--app/views/layouts/application.html.erb-->
 <!DOCTYPE html>
 <html>
   <head>
     ...
-    <%= display_meta_tags(MetaTagService.defaults) %>
+    <%= render "shared/meta_tags" %>
     ...
   </head>
   <body>
@@ -104,16 +105,34 @@ class MyController < ApplicationController
   end
 end
 ```
-Implement the `to_meta_tags` method in your model. This way you'll have access to data specific to that record. You might consider keeping this logic in a concern `MetaTaggable`.
+Implement the `to_meta_tags` method for your model. This way you'll have access to data specific to that record. You might consider keeping this logic in a concern `MetaTaggable`.
 
 ```ruby
-class MyModel < ApplicationRecord
+# app/models/concerns/post/meta_taggable.rb
+module Post::MetaTaggable
+  extend ActiveSupport::Concern
+
   def to_meta_tags
-    MetaTagService.defaults.deep_merge({
+    {
+      site: "Readit",
       title: title,
-      description: description,
-      # other specific tags
-    })
+      image: image_path,
+      description: body.truncate_words(20),
+      og: {
+        title: title,
+        image: image_path,
+        description: body.truncate_words(20),
+        site_name: "Readit",
+      }
+    }
+  end
+
+  def image_path
+    if author.avatar.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(author.avatar)
+    else
+      ActionController::Base.helpers.asset_url('default_avatar.png')
+    end
   end
 end
 ```
