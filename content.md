@@ -138,15 +138,28 @@ end
 ```
 
 ### Step 4: Testing Meta Tags
-To see how your meta tags appear in search results you can use a tool like [Metatags.io](https://metatags.io/). If your app is running locally and you want to test how it looks online, use [ngrok](https://ngrok.com/).
+To see how your meta tags appear in search results you can use a tool like [Metatags.io](https://metatags.io/). 
 
-1. Install ngrok on macOS: `brew install --cask ngrok`
-2. Run `ngrok http [port number]` in your terminal (default is usually port 3000). This provides a forwarding URL which you can then use on metatags.io for testing, or share with friends while developing.
+#### 4a ngrok
+If your app is running locally and you want to test how it looks online, use [ngrok](https://ngrok.com/).
+
+##### 1. Install
+Install ngrok on macOS: `brew install --cask ngrok`
+
+##### 2. Run
+Run `ngrok http [port number]` in your terminal (default is usually port 3000). This provides a forwarding URL which you can then use on metatags.io for testing, or share with friends while developing.
 
 ```plaintext
 Forwarding                    https://d46c-38-32-143-226.ngrok-free.app -> http://localhost:3000
 ```
-3. Use the forwarding to test your metatags at [Metatags.io](https://metatags.io/)
+##### 3.  Use the forwarding url
+Use the forwarding url to test your metatags at [Metatags.io](https://metatags.io/)
+
+#### 4b codespaces
+If your app is running in a codespace and you want to test how your url looks, you can make your server port public. Go to ports and change port 3000 visibility to public.
+
+![](assets/codespace-port-public.png)
+
 
 By following these steps, you ensure that each page of your application has relevant and optimized meta tags, enhancing your SEO and improving your visibility in search engine results.
 
