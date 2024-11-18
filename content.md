@@ -129,7 +129,8 @@ module Post::MetaTaggable
     }
 
     if author.avatar.attached?
-      rails_blob_url(author.avatar)
+      tags[:image] =  rails_blob_url(author.avatar)
+      tags[:og][:image] = rails_blob_url(author.avatar)
     end
 
     tags
