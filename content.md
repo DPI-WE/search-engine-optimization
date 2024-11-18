@@ -169,3 +169,4 @@ SEO is an ongoing process that requires patience and persistence. By using the r
 ## Resources
 - [Meta Tags for SEO: A Simple Guide for Beginners
 ](https://ahrefs.com/blog/seo-meta-tags/)
+- [HTML Meta Tags Cheatsheet](https://devhints.io/html-meta)
