@@ -158,7 +158,7 @@ Use the forwarding url to test your metatags at [Metatags.io](https://metatags.i
 #### 4b codespaces
 If your app is running in a codespace and you want to test how your url looks, you can make your server port public. Go to ports and change port 3000 visibility to public.
 
-![](./assets/codespace-port-public.png)
+![](/assets/codespace-port-public.png)
 
 
 By following these steps, you ensure that each page of your application has relevant and optimized meta tags, enhancing your SEO and improving your visibility in search engine results.
