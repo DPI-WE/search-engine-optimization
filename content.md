@@ -112,30 +112,47 @@ Implement the `to_meta_tags` method for your model. This way you'll have access 
 module Post::MetaTaggable
   extend ActiveSupport::Concern
 
+  # Include helper modules to allow URL generation and asset management.
+  # `Rails.application.routes.url_helpers` gives access to route helpers like `rails_blob_url`.
+  include Rails.application.routes.url_helpers
+
   def to_meta_tags
-    {
+    tags = {
       site: "Readit",
       title: title,
-      image: image_path,
       description: body.truncate_words(20),
       og: {
         title: title,
-        image: image_path,
         description: body.truncate_words(20),
         site_name: "Readit",
       }
     }
-  end
 
-  def image_path
     if author.avatar.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(author.avatar)
-    else
-      ActionController::Base.helpers.asset_url('default_avatar.png')
+      rails_blob_url(author.avatar)
     end
+
+    tags
   end
 end
 ```
+
+<aside>
+You may need to configure your application to serve image assets:
+
+```ruby
+
+# config/environments/development.rb
+Rails.application.configure do
+  ...
+  routes.default_url_options[:host] = 'https://silver-goldfish-7v97p66qjr7hx9j5-3000.app.github.dev'
+  ...
+end
+
+# config/environments/production.rb
+config.assets.compile = true
+```
+</aside>
 
 ### Step 4: Testing Meta Tags
 To see how your meta tags appear in search results you can use a tool like [Metatags.io](https://metatags.io/). 
